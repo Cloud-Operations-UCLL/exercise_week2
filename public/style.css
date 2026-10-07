@@ -1,0 +1,151 @@
+:root {
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --text: #1d2330;
+  --muted: #6b7280;
+  --accent: #c8102e;
+  --border: #e3e5ea;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12151b;
+    --card: #1b1f27;
+    --text: #e6e8ec;
+    --muted: #9aa1ad;
+    --accent: #ff4d63;
+    --border: #2b303a;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+header,
+main,
+footer {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+header {
+  padding-top: 32px;
+}
+
+h1 {
+  margin: 0;
+  color: var(--accent);
+}
+
+.subtitle,
+.muted {
+  color: var(--muted);
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 16px 0;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 1.15rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+input,
+textarea {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px 10px;
+  font: inherit;
+  color: inherit;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+button {
+  font: inherit;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 4px 10px;
+}
+
+button:disabled {
+  opacity: 0.5;
+}
+
+.tickets {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.tickets li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.tickets li:last-child {
+  border-bottom: 0;
+}
+
+.tickets p {
+  margin: 4px 0 8px;
+  white-space: pre-wrap;
+}
+
+.resolved li {
+  opacity: 0.6;
+}
+
+.badge {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.error,
+.status {
+  color: var(--accent);
+}
+
+footer {
+  padding-bottom: 32px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}

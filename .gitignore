@@ -1,0 +1,10 @@
+node_modules/
+.env
+*.log
+.DS_Store
+
+# Real secrets never go in Git. Commit *.example.yaml files with placeholders instead.
+infra/**/*secret*.yaml
+!infra/**/*.example.yaml
+*.kubeconfig
+kubeconfig*

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lab Queue</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1 id="title">Lab Queue</h1>
+      <p class="subtitle">Stuck? Add yourself to the queue and a lecturer will come by.</p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>Ask for help</h2>
+        <form id="ticket-form">
+          <label>
+            Your name
+            <input name="student" maxlength="80" required autocomplete="name" />
+          </label>
+          <label>
+            What are you stuck on?
+            <textarea name="question" maxlength="500" rows="3" required></textarea>
+          </label>
+          <button type="submit">Join the queue</button>
+          <p id="form-error" class="error" hidden></p>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Waiting <span id="open-count" class="badge">0</span></h2>
+        <ol id="open-list" class="tickets"></ol>
+        <p id="open-empty" class="muted">Nobody is waiting. Nice.</p>
+      </section>
+
+      <section class="card">
+        <h2>Recently helped</h2>
+        <ol id="resolved-list" class="tickets resolved"></ol>
+      </section>
+    </main>
+
+    <footer>
+      Served by <code id="hostname">?</code> &middot; version <code id="version">?</code>
+      <span id="status" class="status"></span>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
