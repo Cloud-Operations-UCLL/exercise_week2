@@ -6,5 +6,7 @@ node_modules/
 # Real secrets never go in Git. Commit *.example.yaml files with placeholders instead.
 infra/**/*secret*.yaml
 !infra/**/*.example.yaml
+# Solution repo: the locally edited example Secret stays out of Git too.
+infra/k8s/postgres/secret.example.yaml
 *.kubeconfig
 kubeconfig*

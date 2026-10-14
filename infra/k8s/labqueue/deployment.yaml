@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: labqueue
+  namespace: labqueue
+  labels:
+    app.kubernetes.io/name: labqueue
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: labqueue
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: labqueue
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000 # "node" user in the image, numeric so Kubernetes can verify it
+        runAsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: labqueue
+          # Always the Git SHA of a green run on main. Never :latest.
+          image: ghcr.io/cloud-operations-ucll/exercise_week2_solution:REPLACE_WITH_GIT_SHA
+          ports:
+            - name: http
+              containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: labqueue
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: labqueue-db
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: labqueue-db
+                  key: password
+          # Liveness never touches the database: restarting the app would not fix a database outage.
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 2
+          # Readiness depends on the database: no traffic to a pod that cannot do its work.
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            periodSeconds: 5
+            timeoutSeconds: 2
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]

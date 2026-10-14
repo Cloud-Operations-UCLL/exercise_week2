@@ -1,0 +1,17 @@
+# ClusterIP only: the database is not reachable from outside the cluster.
+# clusterIP: None makes it headless, which is what a StatefulSet's serviceName expects.
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: labqueue
+  labels:
+    app.kubernetes.io/name: postgres
+spec:
+  clusterIP: None
+  selector:
+    app.kubernetes.io/name: postgres
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432
